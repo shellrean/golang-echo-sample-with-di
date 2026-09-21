@@ -25,7 +25,8 @@ func main() {
 
 	routes.Register(in, e)
 
-	if err := e.Start(":8899"); err != nil {
+	cnf := do.MustInvoke[*config.Config](in)
+	if err := e.Start(cnf.Server.Host + ":" + cnf.Server.Port); err != nil {
 		e.Logger.Error("failed to start server", "error", err)
 	}
 }

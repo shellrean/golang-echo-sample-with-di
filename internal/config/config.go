@@ -11,7 +11,13 @@ type Database struct {
 	Dsn string
 }
 
+type Server struct {
+	Port string
+	Host string
+}
+
 type Config struct {
+	Server
 	Database
 }
 
@@ -24,6 +30,10 @@ func Load(i do.Injector) (*Config, error) {
 	return &Config{
 		Database: Database{
 			Dsn: os.Getenv("DATABASE_URL"),
+		},
+		Server: Server{
+			Host: os.Getenv("SERVER_HOST"),
+			Port: os.Getenv("SERVER_PORT"),
 		},
 	}, nil
 }
